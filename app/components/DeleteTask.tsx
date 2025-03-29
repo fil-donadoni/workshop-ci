@@ -1,17 +1,18 @@
 "use client";
 
 import { AiOutlineMinus } from "react-icons/ai";
-import { FormEventHandler, useState } from "react";
 import { deleteTodo } from "@/api";
 import { useRouter } from "next/navigation";
 
+interface DeleteTaskProps {
+  id: string;
+}
 
-const DeleteTask = () => {
+const DeleteTask : React.FC<DeleteTaskProps> = ({id}) => {
   const router = useRouter();
 
-  const handleDeleteTodo: FormEventHandler<HTMLFormElement> = async (e) => {
-    e.preventDefault();
-    await deleteTodo('');
+  const handleDeleteTodo = async () => {
+    await deleteTodo(id);
     router.refresh();
   };
 
@@ -19,7 +20,7 @@ const DeleteTask = () => {
     <div>
       <button
         data-testid="delete-todo"
-        onClick={() => {}}
+        onClick={handleDeleteTodo}
         className='btn btn-primary w-full'
       >
         Delete task <AiOutlineMinus className='ml-2' size={18} />
